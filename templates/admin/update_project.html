@@ -1,0 +1,94 @@
+{% include 'admin_dashboard.html' %}
+{% if success %}
+<div class="alert alert-success">Project Added successfully!</div>
+{% endif %}
+<div class="form-box">
+    <h1 style="color: #000000; text-align:center;">Update Project Form</h1>
+    <form action="/" method="POST">
+        <label for="txtname">Project Name:</label>
+        <input type="text" value="{{ project[1] }}" name="txtname" class="form-control" required>
+        <br>
+        <label for="txtCategory">Category:</label>
+<!--        <div>-->
+<!--            <select id="categorySelect" name="txtcategory" class="form-control" onchange="toggleInput(this)">-->
+<!--                <option value="" disabled selected>Select a category</option>-->
+<!--                <option value="web-development" {% if project[2] == 'web-development' %}selected{% endif %}>Web Development</option>-->
+<!--                <option value="mobile-development" {% if project[2] == 'mobile-development' %}selected{% endif %}>Mobile Development</option>-->
+<!--                <option value="data-science" {% if project[2] == 'data-science' %}selected{% endif %}>Data Science</option>-->
+<!--                <option value="graphic-design" {% if project[2] == 'graphic-design' %}selected{% endif %}>Graphic Design</option>-->
+<!--                <option value="marketing" {% if project[2] == 'marketing' %}selected{% endif %}>Marketing</option>-->
+<!--                <option value="machine-learning" {% if project[2] == 'machine-learning' %}selected{% endif %}>Machine Learning</option>-->
+<!--                <option value="cyber-security" {% if project[2] == 'cyber-security' %}selected{% endif %}>Cyber Security</option>-->
+<!--                <option value="blockchain-development" {% if project[2] == 'blockchain-development' %}selected{% endif %}>Blockchain Development</option>-->
+<!--                <option value="game-development" {% if project[2] == 'game-development' %}selected{% endif %}>Game Development</option>-->
+<!--                <option value="other" {% if project[2] == 'other' %}selected{% endif %}>Other (please specify)</option>-->
+<!--            </select>-->
+<!--        </div>-->
+        <br>
+        <div id="otherCategoryInput" style="display: {% if project[2] == 'other' %}block{% else %}none{% endif %};">
+            <label for="txtOtherCategory">Please specify:</label>
+            <input type="text" name="txtothercategory" class="form-control" value="{{ project[3] }}">
+        </div>
+
+        <label for="txtPassword">Budget:</label>
+        <input type="text" name="txtbudget" class="form-control" value="{{ project[4] }}" required>
+        <br>
+        <label for="txtPosition">Technology:</label>
+        <input type="text" name="txttechnology" class="form-control" value="{{ project[5] }}" required>
+        <br>
+        <label for="Phonenumber">Deadline of Project:</label>
+        <input type="text" name="txtproject" class="form-control" value="{{ project[6] }}" required>
+        <br>
+<!--        <label for="ProjectProcess">Project Process:</label>-->
+        <div>
+<!--            <select id="category" name="txtprojectprocess" class="form-control" required>-->
+<!--                <option value="">Select a status :</option>-->
+<!--                <option value="In Progress" {% if project[7] == 'In Progress' %}selected{% endif %}>In Progress</option>-->
+<!--                <option value="Completed" {% if project[7] == 'Completed' %}selected{% endif %}>Completed</option>-->
+<!--            </select>-->
+        </div>
+        <br>
+        <input type="submit" value="Update" class="btn btn-success">
+    </form>
+</div>
+
+<style>
+    .form-box {
+        background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+        margin-bottom: 30px;  /* Add bottom margin here */
+    }
+
+    .btn-success {
+        background-color: rgba(40, 167, 69, 0.1); /* Light green with 10% opacity */
+        color: #28a745; /* Green text color */
+        border: 2px solid rgba(40, 167, 69, 0.5); /* Green border with 50% opacity */
+        transition: background-color 0.3s, transform 0.3s, color 0.3s; /* Transition for smooth effects */
+        width: 200px; /* Set a specific width for the button */
+        padding: 10px; /* Optional: add some padding for a better height */
+    }
+
+    .btn-success:hover {
+        background-color: #28a745; /* Solid green background on hover */
+        color: white; /* White text color on hover */
+        transform: scale(1.05); /* Slightly increase button size */
+    }
+
+    .alert {
+        margin-bottom: 20px;
+    }
+</style>
+
+<script>
+    function toggleInput(selectElement) {
+        const otherInputDiv = document.getElementById('otherCategoryInput');
+        if (selectElement.value === 'other') {
+            otherInputDiv.style.display = 'block';
+        } else {
+            otherInputDiv.style.display = 'none';
+        }
+    }
+</script>

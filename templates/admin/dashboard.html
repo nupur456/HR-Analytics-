@@ -1,0 +1,158 @@
+{% include "admin_dashboard.html" %}
+<!-- Bar Chart -->
+<style>
+.glow-heading {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #4e73df;
+    text-align: center;
+    transition: 0.4s ease-in-out;
+    animation: glowPulse 2.5s infinite alternate ease-in-out;
+  }
+
+  .glow-heading:hover {
+    color: #2e59d9;
+    text-shadow: 0 0 10px rgba(78, 115, 223, 0.5);
+  }
+
+  @keyframes glowPulse {
+    0% {
+      text-shadow: 0 0 0 rgba(78, 115, 223, 0.2);
+    }
+    100% {
+      text-shadow: 0 0 12px rgba(78, 115, 223, 0.6);
+    }
+  }
+  /* Keyframe animation for fade-in + slight scale effect */
+  @keyframes fadeInScale {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animated-heading {
+    animation: fadeInScale 0.8s ease-in-out;
+    transition: color 0.3s ease;
+    letter-spacing: 1px;
+  }
+
+  .animated-heading:hover {
+    color: #2e59d9; /* Slight color shift on hover */
+    text-shadow: 0 2px 5px rgba(78, 115, 223, 0.3);
+    cursor: default;
+  }
+
+  .chart-bar {
+    height: 500px; /* Increased height */
+  }
+</style>
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="w-100 text-center">
+  <h3 class="glow-heading">Project Process</h3>
+</div>
+
+  </div>
+  <div class="card-body">
+    <div class="chart-bar">
+      <canvas id="myBarChart"></canvas>
+    </div>
+    <hr>
+<!--    Styling for the bar chart can be found in the-->
+<!--    <code>/static/assets/dashboard/js/demo/chart-bar-demo.js</code> file.-->
+  </div>
+</div>
+
+<script>
+  const months = {{ months | tojson }};
+  const completedData = {{ completed_data | tojson }};
+  const inProgressData = {{ in_progress_data | tojson }};
+
+  var ctx = document.getElementById("myBarChart");
+  var myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: months,
+      datasets: [
+        {
+          label: "Completed",
+          backgroundColor: "#4e73df",
+          hoverBackgroundColor: "#2e59d9",
+          borderColor: "#4e73df",
+          data: completedData
+        },
+        {
+          label: "In Progress",
+          backgroundColor: "#1cc88a",
+          hoverBackgroundColor: "#17a673",
+          borderColor: "#1cc88a",
+          data: inProgressData
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      layout: {
+        padding: { left: 10, right: 25, top: 25, bottom: 0 }
+      },
+      scales: {
+        xAxes: [{
+          gridLines: { display: false, drawBorder: false },
+          ticks: { maxTicksLimit: 12 },
+          maxBarThickness: 25
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 10,
+            stepSize: 1,
+            padding: 10,
+            callback: function(value) {
+              return value; // Just integer labels
+            }
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2]
+          }
+        }]
+      },
+      legend: { display: true },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, chart) {
+            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+            return datasetLabel + ': ' + tooltipItem.yLabel;
+          }
+        }
+      }
+    }
+  });
+</script>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="/static/dashboard/vendor/jquery/jquery.min.js"></script>
+<script src="/static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/static/dashboard/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/static/dashboard/vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/static/dashboard/js/demo/chart-area-demo.js"></script>
+<script src="/static/dashboard/js/demo/chart-pie-demo.js"></script>

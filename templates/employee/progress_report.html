@@ -1,0 +1,174 @@
+{% include "employee_dashboard.html" %}
+<!--<h4>Progress: {{ progress }}%</h4>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .glow-heading {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #4e73df;
+      text-align: center;
+      transition: 0.4s ease-in-out;
+      animation: glowPulse 2.5s infinite alternate ease-in-out;
+    }
+
+    .glow-heading:hover {
+      color: #2e59d9;
+      text-shadow: 0 0 10px rgba(78, 115, 223, 0.5);
+    }
+
+    @keyframes glowPulse {
+      0% {
+        text-shadow: 0 0 0 rgba(78, 115, 223, 0.2);
+      }
+      100% {
+        text-shadow: 0 0 12px rgba(78, 115, 223, 0.6);
+      }
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .animated-heading {
+      animation: fadeInScale 0.8s ease-in-out;
+      transition: color 0.3s ease;
+      letter-spacing: 1px;
+    }
+
+    .animated-heading:hover {
+      color: #2e59d9;
+      text-shadow: 0 2px 5px rgba(78, 115, 223, 0.3);
+      cursor: default;
+    }
+
+    .chart-bar {
+      height: 500px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+  <!-- Progress Report Chart -->
+  <div class="card shadow mb-5">
+    <div class="card-header py-3">
+      <div class="w-100 text-center">
+        <h3 class="glow-heading animated-heading">Progress Report</h3>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chart-bar">
+        <canvas id="progressReportChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Chart JS -->
+<script>
+  const months = {{ month_labels | tojson }};
+  const progressReportData = {{ progress_data | tojson }};
+
+  const ctxProgress = document.getElementById("progressReportChart").getContext("2d");
+
+  const progressReportChart = new Chart(ctxProgress, {
+    type: 'bar',
+    data: {
+      labels: months,
+      datasets: [{
+        label: "Progress Report (%)",
+        backgroundColor: "#4e73df",
+        hoverBackgroundColor: "#2e59d9",
+        borderColor: "#4e73df",
+        data: progressReportData
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      layout: {
+        padding: { left: 10, right: 25, top: 25, bottom: 0 }
+      },
+      scales: {
+        x: {
+          grid: { display: false, drawBorder: false },
+          ticks: {
+            maxTicksLimit: 12
+          }
+        },
+        y: {
+          beginAtZero: true,
+          min: 0,
+          max: 100,
+          ticks: {
+            stepSize: 10,
+            callback: function(value) {
+              return value + '%';
+            }
+          },
+          grid: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2]
+          }
+        }
+      },
+      plugins: {
+        legend: { display: true },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const label = context.dataset.label || '';
+              const value = context.parsed.y;
+              return label + ': ' + value + '%';
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+
+
+
+
+</body>
+</html>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="/static/dashboard/vendor/jquery/jquery.min.js"></script>
+<script src="/static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/static/dashboard/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/static/dashboard/vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/static/dashboard/js/demo/chart-area-demo.js"></script>
+<script src="/static/dashboard/js/demo/chart-pie-demo.js"></script>
+
+

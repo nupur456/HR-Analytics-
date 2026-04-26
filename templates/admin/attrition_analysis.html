@@ -1,0 +1,127 @@
+{% include "admin_dashboard.html" %}
+
+<style>
+  .form-card {
+    max-width: 900px;
+    margin: 30px auto;
+  }
+  .form-title {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #4e73df;
+    margin-bottom: 20px;
+  }
+</style>
+
+<div class="card shadow mb-4 form-card">
+  <div class="card-header py-3">
+    <h4 class="form-title">Employee Attrition Analysis Form</h4>
+  </div>
+
+  <div class="card-body">
+    <form method="post" action="/predict-attrition">
+
+      <div class="row">
+
+        <!-- Job Role -->
+        <div class="col-md-6 mb-3">
+          <label>Job Role</label>
+          <select class="form-control" name="JobRole" required>
+            <option value="">Select Job Role</option>
+            <option>Sales Executive</option>
+            <option>Research Scientist</option>
+            <option>Laboratory Technician</option>
+            <option>Manufacturing Director</option>
+            <option>Healthcare Representative</option>
+            <option>Manager</option>
+            <option>Human Resources</option>
+          </select>
+        </div>
+
+        <!-- Department -->
+        <div class="col-md-6 mb-3">
+          <label>Department</label>
+          <select class="form-control" name="Department" required>
+            <option value="">Select Department</option>
+            <option>Sales</option>
+            <option>Research & Development</option>
+            <option>Human Resources</option>
+          </select>
+        </div>
+
+        <!-- Total Working Years -->
+        <div class="col-md-6 mb-3">
+          <label>Total Working Years</label>
+          <input type="number" class="form-control" name="TotalWorkingYears" min="0" required>
+        </div>
+
+        <!-- Years at Company -->
+        <div class="col-md-6 mb-3">
+          <label>Years at Company</label>
+          <input type="number" class="form-control" name="YearsAtCompany" min="0" required>
+        </div>
+
+        <!-- Monthly Income -->
+        <div class="col-md-6 mb-3">
+          <label>Monthly Income</label>
+          <input type="number" class="form-control" name="MonthlyIncome" min="0" required>
+        </div>
+
+        <!-- Num Companies Worked -->
+        <div class="col-md-6 mb-3">
+          <label>Number of Companies Worked</label>
+          <input type="number" class="form-control" name="NumCompaniesWorked" min="0" required>
+        </div>
+
+        <!-- Years Since Last Promotion -->
+        <div class="col-md-6 mb-3">
+          <label>Years Since Last Promotion</label>
+          <input type="number" class="form-control" name="YearsSinceLastPromotion" min="0" required>
+        </div>
+
+        <!-- OverTime -->
+        <div class="col-md-6 mb-3">
+          <label>Over Time</label>
+          <select class="form-control" name="OverTime" required>
+            <option value="">Select</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+
+        <!-- Job Satisfaction -->
+        <div class="col-md-6 mb-3">
+          <label>Job Satisfaction (1 = Low, 4 = High)</label>
+          <select class="form-control" name="JobSatisfaction" required>
+            <option value="">Select</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+
+        <!-- Work Life Balance -->
+        <div class="col-md-6 mb-3">
+          <label>Work Life Balance (1 = Poor, 4 = Best)</label>
+          <select class="form-control" name="WorkLifeBalance" required>
+            <option value="">Select</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary px-5">
+          Predict Attrition
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

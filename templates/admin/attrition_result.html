@@ -1,0 +1,44 @@
+{% include "admin_dashboard.html" %}
+
+<div class="card shadow mb-4" style="max-width:600px;margin:40px auto;">
+  <div class="card-header text-center">
+    <h4>Attrition Prediction Result</h4>
+  </div>
+
+  <div class="card-body text-center">
+
+    <h5>
+      Attrition Prediction:
+      {% if prediction == "Yes" %}
+        <span class="text-danger font-weight-bold">{{ prediction }}</span>
+      {% else %}
+        <span class="text-success font-weight-bold">{{ prediction }}</span>
+      {% endif %}
+    </h5>
+
+    <h6 class="mt-3">
+      Risk Probability:
+      <strong>{{ risk }}%</strong>
+    </h6>
+
+    <a href="/admin/attrition-analysis" class="btn btn-primary mt-4">
+      Predict Another
+    </a>
+
+    <!-- MESSAGE BELOW BUTTON -->
+    <div class="mt-4">
+      {% if prediction == "Yes" %}
+        <p style="color:#dc3545;font-weight:500;">
+          ⚠️ This employee shows a high likelihood of leaving the organization.
+          Proactive retention measures are recommended.
+        </p>
+      {% else %}
+        <p style="color:#28a745;font-weight:500;">
+          ✅ This employee is likely to stay with the organization.
+          No immediate retention action is required.
+        </p>
+      {% endif %}
+    </div>
+
+  </div>
+</div>

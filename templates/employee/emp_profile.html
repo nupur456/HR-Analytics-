@@ -1,0 +1,410 @@
+
+<!--<div class="form-box">-->
+<!--    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">-->
+<!--        <h1 style="text-align: center; flex-grow: 1;">Update Employee Profile</h1>-->
+<!--&lt;!&ndash;        <a href="/show_emp" class="btn btn-success">Added Employee List</a>&ndash;&gt;-->
+<!--    </div>-->
+<!--    {% for result in result %}-->
+<!--    <form action="/emp_profile" method="POST">-->
+<!--        &lt;!&ndash; Employee ID &ndash;&gt;-->
+<!--&lt;!&ndash;        <label for="txtempid">Employee ID:</label>&ndash;&gt;-->
+<!--        <input type="hidden" value="{{result[0]}}" name="txtempid" class="form-control" >-->
+<!--        <br>-->
+
+<!--        &lt;!&ndash; Employee Name &ndash;&gt;-->
+<!--        <label for="txtname">Employee Name:</label>-->
+<!--        <input type="text" value="{{result[1]}}" name="txtname" class="form-control" required>-->
+<!--        <br>-->
+
+<!--        &lt;!&ndash; Email &ndash;&gt;-->
+<!--        <label for="txtemail">Email:</label>-->
+<!--        <input type="email" value="{{result[2]}}" name="txtemail" class="form-control" required>-->
+<!--        <br>-->
+
+<!--        &lt;!&ndash; Password &ndash;&gt;-->
+<!--        <label for="txtpassword">Password:</label>-->
+<!--        <input type="password" value="{{result[3]}}" name="txtpassword" class="form-control" required>-->
+<!--        <br>-->
+
+<!--        &lt;!&ndash; Designation &ndash;&gt;-->
+<!--        <label for="txtPosition">Designation:</label>-->
+<!--        <select id="txtPosition" name="txtdesignation" class="form-control" required>-->
+<!--            <option value="">Select a designation</option>-->
+<!--            <option value="Web Developer" {% if result[4] == 'Web Developer' %}selected{% endif %}>Web Developer</option>-->
+<!--            <option value="Mobile App Developer" {% if result[4] == 'Mobile App Developer' %}selected{% endif %}>Mobile App Developer</option>-->
+<!--            <option value="Desktop Application Developer" {% if result[4] == 'Desktop Application Developer' %}selected{% endif %}>Desktop Application Developer</option>-->
+<!--            <option value="User Experience (UX) Designer" {% if result[4] == 'User Experience (UX) Designer' %}selected{% endif %}>User Experience (UX) Designer</option>-->
+<!--            <option value="Software Tester" {% if result[4] == 'Software Tester' %}selected{% endif %}>Software Tester</option>-->
+<!--            <option value="Database Administrator" {% if result[4] == 'Database Administrator' %}selected{% endif %}>Database Administrator</option>-->
+<!--            <option value="Cloud Solutions Architect" {% if result[4] == 'Cloud Solutions Architect' %}selected{% endif %}>Cloud Solutions Architect</option>-->
+<!--            <option value="API Developer" {% if result[4] == 'API Developer' %}selected{% endif %}>API Developer</option>-->
+<!--            <option value="Python Developer" {% if result[4] == 'Python Developer' %}selected{% endif %}>Python Developer</option>-->
+<!--            <option value="DevOps Developer" {% if result[4] == 'DevOps Developer' %}selected{% endif %}>DevOps Developer</option>-->
+<!--            <option value="other" {% if result[4] == 'other' %}selected{% endif %}>Other</option>-->
+<!--        </select>-->
+<!--        <br>-->
+
+<!--        &lt;!&ndash; Specify other designation if 'Other' is selected &ndash;&gt;-->
+<!--        <input type="text" id="otherDesignation" name="otherdesignation" class="form-control" placeholder="Please specify" style="display: none;" />-->
+
+<!--        &lt;!&ndash; Mobile Number &ndash;&gt;-->
+<!--        <label for="txtmobile">Mobile No:</label>-->
+<!--        <input type="text" value="{{result[5]}}" name="txtmobile" class="form-control" required>-->
+<!--        <br>-->
+
+<!--        <input type="submit" value="Submit" class="btn btn-success">-->
+<!--    </form>-->
+<!--    {% endfor %}-->
+<!--</div>-->
+
+<!--<style>-->
+<!--    .form-box {-->
+<!--        background-color: rgba(255, 255, 255, 0.8);-->
+<!--        padding: 20px;-->
+<!--        border-radius: 10px;-->
+<!--        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);-->
+<!--        margin-top: 20px;-->
+<!--        margin-bottom: 30px;-->
+<!--    }-->
+
+<!--    .btn-success {-->
+<!--        background-color: rgba(40, 167, 69, 0.1);-->
+<!--        color: #28a745;-->
+<!--        border: 2px solid rgba(40, 167, 69, 0.5);-->
+<!--        transition: background-color 0.3s, transform 0.3s, color 0.3s;-->
+<!--        width: 200px;-->
+<!--        padding: 10px;-->
+<!--        cursor: pointer;-->
+<!--    }-->
+
+<!--    .btn-success:hover {-->
+<!--        background-color: #28a745;-->
+<!--        color: white;-->
+<!--        transform: scale(1.05);-->
+<!--    }-->
+
+<!--    .alert {-->
+<!--        margin-bottom: 20px;-->
+<!--    }-->
+<!--</style>-->
+
+<!--<script>-->
+<!--    // Function to toggle the 'Other' designation input based on dropdown selection-->
+<!--    function toggleDesignation() {-->
+<!--        const selectElem = document.getElementById('txtPosition');-->
+<!--        const otherInput = document.getElementById('otherDesignation');-->
+<!--        if (selectElem.value === 'other') {-->
+<!--            otherInput.style.display = 'block';-->
+<!--        } else {-->
+<!--            otherInput.style.display = 'none';-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Attach event listener on page load-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--        const selectElem = document.getElementById('txtPosition');-->
+<!--        toggleDesignation(); // Set initial state based on current selection-->
+<!--        selectElem.addEventListener('change', toggleDesignation);-->
+<!--    });-->
+<!--</script>-->
+
+
+<!--New Code-->
+{% include "employee_dashboard.html" %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+<div class="container my-4 d-flex justify-content-center">
+  <div class="card shadow-lg p-4" style="max-width: 900px; width: 100%; border-radius: 20px;">
+    <div class="card-header  text-white d-flex justify-content-between align-items-center rounded-top">
+<!--      <h3 class="mb-0">Update Employee Profile</h3>-->
+      <!-- Your header with advanced style -->
+<h3 class="mb-0 fancy-header">Update Employee Profile</h3>
+
+      <!-- Optional link/button -->
+      <!-- <a href="/show_emp" class="btn btn-light">Employee List</a> -->
+    </div>
+    <div class="card-body">
+      {% for result in result %}
+      <form action="/emp_profile" method="POST" class="styled-form">
+        <input type="hidden" value="{{result[0]}}" name="txtempid" />
+
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name" class="label-style">Employee Name</label>
+          <input type="text" id="name" name="txtname" class="input-style" value="{{result[1]}}" required />
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email" class="label-style">Email</label>
+          <input type="email" id="email" name="txtemail" class="input-style" value="{{result[2]}}" required />
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password" class="label-style">Password</label>
+          <input type="password" id="password" name="txtpassword" class="input-style" value="{{result[3]}}" required />
+        </div>
+
+        <!-- Designation -->
+        <div class="form-group">
+          <label for="designation" class="label-style">Designation</label>
+          <select id="designation" name="txtdesignation" class="input-style" required>
+            <option value="" disabled {% if not result[4] %}selected{% endif %}>Select a designation</option>
+            <option value="Web Developer" {% if result[4] == 'Web Developer' %}selected{% endif %}>Web Developer</option>
+            <option value="Mobile App Developer" {% if result[4] == 'Mobile App Developer' %}selected{% endif %}>Mobile App Developer</option>
+            <option value="Desktop Application Developer" {% if result[4] == 'Desktop Application Developer' %}selected{% endif %}>Desktop Application Developer</option>
+            <option value="User Experience (UX) Designer" {% if result[4] == 'User Experience (UX) Designer' %}selected{% endif %}>UX Designer</option>
+            <option value="Software Tester" {% if result[4] == 'Software Tester' %}selected{% endif %}>Software Tester</option>
+            <option value="Database Administrator" {% if result[4] == 'Database Administrator' %}selected{% endif %}>Database Admin</option>
+            <option value="Cloud Solutions Architect" {% if result[4] == 'Cloud Solutions Architect' %}selected{% endif %}>Cloud Architect</option>
+            <option value="API Developer" {% if result[4] == 'API Developer' %}selected{% endif %}>API Developer</option>
+            <option value="Python Developer" {% if result[4] == 'Python Developer' %}selected{% endif %}>Python Developer</option>
+            <option value="DevOps Developer" {% if result[4] == 'DevOps Developer' %}selected{% endif %}>DevOps Developer</option>
+            <option value="other" {% if result[4] == 'other' %}selected{% endif %}>Other</option>
+          </select>
+        </div>
+
+        <!-- Other designation if 'other' selected -->
+        <div class="form-group" id="otherDesignationContainer" style="display: none;">
+          <label for="otherdesignation" class="label-style">Specify Other</label>
+          <input type="text" id="otherdesignation" name="otherdesignation" class="input-style" placeholder="Please specify" />
+        </div>
+
+        <!-- Mobile -->
+        <div class="form-group">
+          <label for="mobile" class="label-style">Mobile No</label>
+          <input type="text" id="mobile" name="txtmobile" class="input-style" value="{{result[5]}}" required />
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn-submit">Submit</button>
+      </form>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+body {
+  background: linear-gradient(to right, #f0f2f5, #e0e7ff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  border-radius: 20px;
+}
+
+/* Labels & Inputs styles */
+.label-style {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.input-style {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+  outline: none;
+}
+
+.input-style:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0,123,255,0.2);
+  transform: translateY(-1px);
+}
+
+/* Hover effect for inputs */
+.input-style:hover {
+  border-color: #0056b3;
+}
+
+/* Focus styles for labels (optional, since labels are static here) */
+input:focus + .label-style,
+select:focus + .label-style {
+  color: #007bff;
+}
+
+/* Form container styles */
+.styled-form {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Submit button styles */
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-submit:hover {
+  background-color: #218838;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Ripple effect on button hover */
+.btn-submit::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255,255,255,0.4);
+  opacity: 0;
+  transition: all 0.6s ease;
+  pointer-events: none;
+}
+
+.btn-submit:hover::after {
+  opacity: 1;
+  transform: scale(1.5);
+  transition: 0s;
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  from { opacity: 1; transform: scale(0); }
+  to { opacity: 0; transform: scale(2); }
+}
+
+/* Responsive adjustments */
+@media(max-width: 600px){
+  body {
+    padding: 10px;
+  }
+}
+
+.fancy-header {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+   background-color: #4e54c8; /* Customize color here */
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 10px;
+  width: fit-content;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeInDown 1s ease-out;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.fancy-header:hover {
+  background-color: #3b43b4;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+ /* Refined hover effects - removing blue glow, adding subtle effects */
+.btn-submit:hover {
+  background-color: #218838; /* Slightly darker green for hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Slightly elevated shadow */
+  transform: scale(1.05); /* Slight zoom for a modern feel */
+  /* Optional: Add a soft glow around the button */
+  box-shadow: 0 0 12px rgba(34, 136, 34, 0.6);
+}
+
+/* Additional optional effect: animated gradient background for a more dynamic look */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glow-border {
+  from {
+    box-shadow: 0 0 15px #00ffcc;
+  }
+  to {
+    box-shadow: 0 0 25px #00ffff;
+  }
+}
+
+/* Style for flash messages container */
+.flash-messages {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+/* Bootstrap alert classes are used here, but you can customize */
+.alert {
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+}
+</style>
+
+<script>
+// Show/hide 'Other' designation input dynamically
+function toggleOtherDesignation() {
+  const select = document.getElementById('designation');
+  const otherDiv = document.getElementById('otherDesignationContainer');
+  const otherInput = document.getElementById('otherdesignation');
+
+  if (select.value === 'other') {
+    otherDiv.style.display = 'block';
+    otherInput.focus();
+  } else {
+    otherDiv.style.display = 'none';
+    otherInput.value = '';
+  }
+}
+
+// Initialize and add event listener
+document.addEventListener('DOMContentLoaded', () => {
+  toggleOtherDesignation();
+  document.getElementById('designation').addEventListener('change', toggleOtherDesignation);
+});
+
+
+</script>
+<!-- Bootstrap JS (for dismissible alerts) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

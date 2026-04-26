@@ -1,0 +1,99 @@
+{% include 'client_dashboard.html' %}
+
+
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <div class="col-md-12">
+        <head>
+                 <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+              <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+               <script src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+     <link href="https://cdn.datatables.net/1.11.1/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+         <!--Delete font button link--><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+            <script>
+                   $(document).ready(function(){
+                $("#datatable").dataTable();
+              });
+           </script>
+       <style>
+           .card{
+                margin-bottom:30px;
+                }
+              /* Custom hover effect (optional) */
+            .btn-danger:hover {
+                 background-color: #c82333; /* Lighter red on hover */
+                transform: scale(1.05); /* Slightly increase size on hover */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+            }
+             /* Custom hover effect (optional) */
+            .btn-success:hover {
+                 background-color: 	#32CD32; /* Lighter red on hover */
+                transform: scale(1.05); /* Slightly increase size on hover */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+            }
+           .wide-column {
+            width: 150px;  /* Set your width here */
+        }
+
+       </style>
+  </head>
+
+        <div class="card">
+            <div class="card-header">
+                <h1 style="text-align:center"> View Payment </h1>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>SR.NO</th>
+                            <th>Payment ID</th>
+                            <th>Lead Name</th>
+                            <th>Amount</th>
+                            <th>Payment Method</th>
+                            <th>Payment Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in payments %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ p.payment_id }}</td>
+                            <td>{{ p.customer_name }}</td>
+                            <td>{{ p.amount }}</td>
+                            <td>{{ p.payment_method }}</td>
+                            <td>{{ p.payment_date }}</td>
+                            <td style="color: {{ 'green' if p.status == 'Paid' else 'red' }};">
+                                <b>{{ p.status }}</b>
+                            </td>
+                            <td class="wide-column">
+                                <a href="/client_payment_delete?id={{ p.payment_id }}" style="margin-right: 7px;">
+                                    <i class="fa fa-trash" style="font-size:29px; color:red"></i>
+                                </a>
+                                <a href="/client_view_payment?id={{ p.payment_id }}">
+                                    <i class="fa fa-eye" style="font-size:25px;color:blue"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

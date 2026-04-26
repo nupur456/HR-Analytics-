@@ -1,0 +1,98 @@
+{% include 'admin_dashboard.html'%}
+{% if success %}
+<div class="alert alert-success">Project Added successfully!</div>
+{% endif %}
+<div class="form-box">
+                <h1 style="color: #000000; text-align:center;">Add Project Form</h1>
+                <form action="/add_project" method="POST">
+<!--                    <label for="txtId">Name:</label>-->
+<!--                    <input type="text"  name="txtempid" class="form-control" required>-->
+<!--                    value={{emp_id}}-->
+<!--                    <br>-->
+                    <label for="txtname">Project Name:</label>
+                    <input type="text"  name="txtname" class="form-control" required>
+                    <br>
+                    <label for="txtCategory">Category:</label>
+                    <div>
+                        <select id="categorySelect" name="txtcategory" class="form-control" onchange="toggleInput(this)">
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="web-development">Web Development</option>
+                            <option value="mobile-development">Mobile Development</option>
+                            <option value="data-science">Data Science</option>
+                            <option value="graphic-design">Graphic Design</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="machine-learning">Machine Learning</option>
+                            <option value="cyber-security">Cyber Security</option>
+                            <option value="blockchain-development">Blockchain Development</option>
+                            <option value="game-development">Game Development</option>
+                            <option value="other">Other (please specify)</option>
+                            </select>
+                    </div>
+                    <br>
+                    <div id="otherCategoryInput" style="display:none;">
+                        <label for="txtOtherCategory">Please specify:</label>
+                        <input type="text" name="txtothercategory" class="form-control">
+                    </div>
+
+                    <label for="txtPassword">Budget:</label>
+                    <input type="text" name="txtbudget" class="form-control" required></input>
+                    <br>
+                    <label for="txtPosition">Technology:</label>
+                    <input type="text" name="txttechnology" class="form-control" required>
+                    <br>
+                    <label for="Phonenumber">Deadline of Project:</label>
+                    <input type="text" name="txtproject" class="form-control" required>
+                    <br>
+                    <label for="ProjectProcess">Project Process:</label>
+                    <div>
+                    <select id="category" name="txtprojectprocess" class="form-control" required onchange="checkOtherOption()">
+                    <option value="">Select a status :</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                    </select>
+                    </div>
+                        <br>
+                        <input type="submit" value="Submit" class="btn btn-success">
+                </form>
+            </div>
+
+
+<style>
+    .form-box {
+        background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+        margin-bottom: 30px;  /* Add bottom margin here */
+    }
+
+    .btn-success {
+    background-color: rgba(40, 167, 69, 0.1); /* Light green with 10% opacity */
+    color: #28a745; /* Green text color */
+    border: 2px solid rgba(40, 167, 69, 0.5); /* Green border with 50% opacity */
+    transition: background-color 0.3s, transform 0.3s, color 0.3s; /* Transition for smooth effects */
+    width: 200px; /* Set a specific width for the button */
+    padding: 10px; /* Optional: add some padding for a better height */
+    }
+
+    .btn-success:hover {
+    background-color: #28a745; /* Solid green background on hover */
+    color: white; /* White text color on hover */
+    transform: scale(1.05); /* Slightly increase button size */
+    }
+
+    .alert {
+        margin-bottom: 20px;
+    }
+</style>
+<script>
+    function toggleInput(selectElement) {
+        const otherInputDiv = document.getElementById('otherCategoryInput');
+        if (selectElement.value === 'other') {
+            otherInputDiv.style.display = 'block';
+        } else {
+            otherInputDiv.style.display = 'none';
+        }
+    }
+</script>

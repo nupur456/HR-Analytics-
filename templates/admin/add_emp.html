@@ -1,0 +1,92 @@
+{% include 'admin_dashboard.html'%}
+{% if success %}
+<div class="alert alert-success">Employee Registration form submitted successfully!</div>
+{% endif %}
+<div class="form-box">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <h1 style="text-align: center; flex-grow: 1;">Employee Registration Form</h1>
+    <a href="/show_emp" class="btn btn-success">Added Employee List</a>
+</div>
+<!--                <h1 style="color: #000000; text-align:center;">Employee Registration Form</h1>-->
+                <form action="/emp_save" method="POST">
+                    <label for="txtId">Employee ID:</label>
+                    <input type="text"  name="txtempid" class="form-control" required>
+<!--                    value={{emp_id}}-->
+                    <br>
+                    <label for="txtname">Employee Name:</label>
+                    <input type="text"  name="txtname" class="form-control" required>
+                    <br>
+                    <label for="txtEmail">Email:</label>
+                    <input type="email" name="txtemail" class="form-control" required>
+                    <br>
+                    <label for="txtPassword">Password:</label>
+                    <input type="password" name="txtpassword" class="form-control" required></input>
+                    <br>
+<!--                    <label for="txtPosition">Designation:</label>-->
+<!--                    <input type="text" name="txtdesignation" class="form-control" required>-->
+            <label for="txtPosition">Designation:</label>
+            <select id="txtPosition" name="txtdesignation" class="form-control" required>
+            <option value="">Select a designation</option>
+            <option value="Web Developer">Web Developer</option>
+            <option value="Mobile App Developer">Mobile App Developer</option>
+            <option value="Desktop Application Developer">Desktop Application Developer</option>
+            <option value="User Experience (UX) Designer">User Experience (UX) Designer</option>
+            <option value="Software Tester">Software Tester</option>
+            <option value="Database Administrator">Database Administrator</option>
+            <option value="Cloud Solutions Architect">Cloud Solutions Architect</option>
+            <option value="API Developer">API Developer</option>
+            <option value="Python Developer">Python Developer</option>
+            <option value="DevOps Developer">DevOps Developer</option>
+            <option value="other">Other</option>
+            </select>
+
+                <input type="text" id="otherDesignation" name="otherdesignation" class="form-control" placeholder="Please specify" style="display: none;" />
+                    <br>
+
+                    <label for="Phonenumber">Mobile.No:</label>
+                    <input type="text" name="txtmobile" class="form-control" required>
+                    <br>
+                    <input type="submit" value="Submit" class="btn btn-success">
+                </form>
+            </div>
+
+
+<style>
+    .form-box {
+        background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+        margin-bottom: 30px;  /* Add bottom margin here */
+    }
+
+    .btn-success {
+    background-color: rgba(40, 167, 69, 0.1); /* Light green with 10% opacity */
+    color: #28a745; /* Green text color */
+    border: 2px solid rgba(40, 167, 69, 0.5); /* Green border with 50% opacity */
+    transition: background-color 0.3s, transform 0.3s, color 0.3s; /* Transition for smooth effects */
+    width: 200px; /* Set a specific width for the button */
+    padding: 10px; /* Optional: add some padding for a better height */
+    }
+
+    .btn-success:hover {
+    background-color: #28a745; /* Solid green background on hover */
+    color: white; /* White text color on hover */
+    transform: scale(1.05); /* Slightly increase button size */
+    }
+
+    .alert {
+        margin-bottom: 20px;
+    }
+</style>
+<script>
+    // Add event listener for change event on the designation dropdown
+    document.getElementById('txtPosition').addEventListener('change', function() {
+        if (this.value === 'other') {
+            document.getElementById('otherDesignation').style.display = 'block';
+        } else {
+            document.getElementById('otherDesignation').style.display = 'none';
+        }
+    });
+</script>

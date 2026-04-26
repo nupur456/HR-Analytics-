@@ -1,0 +1,95 @@
+{% include 'admin_dashboard.html'%}
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-8">-->
+<!--            <h1>Enquiry Table</h1>-->
+<!--        </div>-->
+<!--        <div class="col-md-12">-->
+            {% if success %}
+            <div class="alert alert-success">Enquiry form submitted successfully!</div>
+            {% endif %}
+            <div class="form-box">
+                <h1 style="color: #000000; text-align:center;">Enquiry Form</h1>
+                <form action="/save" method="POST">
+                    <label for="txtname">Lead Name:</label>
+                    <input type="text" name="txtname" class="form-control" required>
+                    <br>
+                    <label for="txtemail">Email:</label>
+                    <input type="email" name="txtemail" class="form-control" required>
+                    <br>
+<!--                    <label for="txtenqsubject">Category:</label>-->
+<!--                    <input type="text" name="txtenqsubject" class="form-control" required>-->
+                    <label for="category">Category:</label>
+                    <select id="category" name="txtenqsubject" class="form-control" required onchange="checkOtherOption()">
+                    <option value="">Select a category</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="Mobile App Development">Mobile App Development</option>
+                    <option value="Desktop Application Development">Desktop Application Development</option>
+                    <option value="User Experience (UX) Design">User Experience (UX) Design</option>
+                    <option value="Software Testing and QA">Software Testing and QA</option>
+                    <option value="Database Management">Database Management</option>
+                    <option value="Cloud Solutions">Cloud Solutions</option>
+                    <option value="API Development">API Development</option>
+                    <option value="other">Other</option>
+                    </select>
+                    
+                    <input type="text" id="otherCategory" name="otherCategory" class="form-control" placeholder="Please specify" style="display: none;" />
+<!--                    <br>-->
+<!--                    <label for="txtapproxbudget">Approx Project Budget:</label>-->
+<!--                    <input type="text" class="form-control" name="txtbudget" required>-->
+<!--                    <br>-->
+<!--                    <label for="txtapproxdeadline">Approx Project Deadline:</label>-->
+<!--                    <input type="text" class="form-control" name="txtdeadline" required>-->
+                    <br>
+                    <label for="txtenqdetails">Enquiry Details:</label>
+                    <textarea name="txtenqdetails" class="form-control" required></textarea>
+                    <br>
+                    <input type="submit" value="Submit" class="btn btn-success">
+                </form>
+            </div>
+
+
+<style>
+    .form-box {
+        background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+        margin-bottom: 30px;  /* Add bottom margin here */
+    }
+
+    .btn-success {
+    background-color: rgba(40, 167, 69, 0.1); /* Light green with 10% opacity */
+    color: #28a745; /* Green text color */
+    border: 2px solid rgba(40, 167, 69, 0.5); /* Green border with 50% opacity */
+    transition: background-color 0.3s, transform 0.3s, color 0.3s; /* Transition for smooth effects */
+    width: 200px; /* Set a specific width for the button */
+    padding: 10px; /* Optional: add some padding for a better height */
+    }
+
+    .btn-success:hover {
+    background-color: #28a745; /* Solid green background on hover */
+    color: white; /* White text color on hover */
+    transform: scale(1.05); /* Slightly increase button size */
+    }
+
+    .alert {
+        margin-bottom: 20px;
+    }
+</style>
+
+<script>
+function checkOtherOption() {
+    const dropdown = document.getElementById('category');
+    const otherInput = document.getElementById('otherCategory');
+
+    if (dropdown.value === 'other') {
+        otherInput.style.display = 'block';
+        otherInput.required = true; // Make the input required when selected
+    } else {
+        otherInput.style.display = 'none';
+        otherInput.required = false; // Make the input not required if not selected
+    }
+}
+</script>
